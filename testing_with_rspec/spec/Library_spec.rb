@@ -23,16 +23,28 @@ describe Library do
     end 
   end
 
-  describe "adding books to" do
-    context "empty library" do
+  describe "adding books" do
+    context "to an empty library" do
       Given(:library) { Library.new}
-      When { library.add_book(Book.new "T", "A", "C")}
+      When { library.add_book(Book.new "The Amazing Ruby", "Amazing Author", "C")}
       Then {expect(library.size).to eql 1}
     end
-    context "library with many books" do
+    context "to a library with many books" do
       Given(:library) { Library.new @book_list}
       When { library.add_book(Book.new "T", "A", "C")}
       Then {expect(library.size).to eql @book_list.size + 1}
     end 
+  end
+
+  describe "retrieving books by title" do
+    context "when no book matching the title" do
+      Given(:library) { Library.new @book_list}
+      Then {expect(library.get_books_by_title("The Amazing Ruby").size).to eql 0 }
+    end 
+    context "when only one book matching the title" do
+      Given(:library) { Library.new @book_list}
+      Then {expect(library.get_books_by_title("Don't Make me Think").size).to eql 1 }
+      Then {expect(library.get_books_by_title("Don't Make me Think")[0].author).to eql "Steve Krug" }
+    end
   end
 end

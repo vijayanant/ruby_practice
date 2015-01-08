@@ -6,7 +6,13 @@ class Library
   def add_book book
     @books << book
   end
+
   def size 
     @books.size
   end
+
+  def get_books_by_title title
+    @books.select { |book| book.title == title}
+  end
+
 end 
