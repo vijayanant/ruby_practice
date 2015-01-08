@@ -15,4 +15,8 @@ class Library
     @books.select { |book| book.title == title}
   end
 
+  def get_books_by_author author
+    @books.select { |book| book.author == author}
+  end
+
 end 

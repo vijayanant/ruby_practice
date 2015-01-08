@@ -47,4 +47,15 @@ describe Library do
       Then {expect(library.get_books_by_title("Don't Make me Think")[0].author).to eql "Steve Krug" }
     end
   end
+
+  describe "retrieving books by author" do
+    context "when no book matching the author" do
+      Given(:library) { Library.new @book_list}
+      Then {expect(library.get_books_by_author("Vijay Anant").size).to eql 0 }
+    end 
+    context "when only one book matching the author" do
+      Given(:library) { Library.new @book_list}
+      Then {expect(library.get_books_by_author("Steve Krug").size).to eql 1 }
+    end
+  end
 end
