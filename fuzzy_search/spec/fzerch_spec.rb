@@ -27,7 +27,7 @@ describe FuzzySearch do
     context "when single char match" do
       Given(:fuzzy) { FuzzySearch.new @lines}
       Then { expect(fuzzy.search('Z').length).to eql 1}
-      Then { expect(fuzzy.search('Z')[0]).to eql @lines[1]}
+      Then { expect(fuzzy.search('Z')).to eql @lines[1..1]}
     end
   end
 end

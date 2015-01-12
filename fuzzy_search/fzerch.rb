@@ -1,11 +1,17 @@
 class FuzzySearch 
   def initialize text, chars= ''
     @lines = text
-    @chars = chars
+    @result = search chars # Does it causes problem with inheritance scenarios ?
+    # update @query only after search, otherwise we always return from first line with nil
+    @query = chars
   end 
 
   def search query=''
-    @lines.map do |line|
+    #return saved search result if query hasn't changed
+    return @result if query == @query
+
+    @query = query 
+    @result = @lines.map do |line|
       [line, score(line, query)]
     end.select do |line, score|
       score > 0.0
@@ -16,6 +22,8 @@ class FuzzySearch
     end
   end 
 
+  # Computes score of choice string against query characters.
+  # Score is higher if longer substrings are found.
   def score choice, query
     return 1.0 if query.length == 0
     return 0.0 if choice.length == 0
